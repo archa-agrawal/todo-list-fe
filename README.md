@@ -71,3 +71,8 @@ api base path: /api
     ```
 - raise pull request once the change is done
 - once code review approved, merge, do next ticket
+
+### Code quality rules
+- Try to use classes, modules, errors and promises
+- Try to write reusable methods
+- Tab properly
