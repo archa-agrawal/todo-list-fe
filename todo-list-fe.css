@@ -1,0 +1,26 @@
+div {
+    box-sizing: content-box;
+    width: 500px;
+    height: 600px;
+    border: 2px solid black;
+    margin-left: 500px;
+    text-align: center;
+    color:blue;
+}
+
+.textBox {
+    box-sizing: content-box;
+    width: 350px;
+    height: 60px;
+    border: 2px solid black;
+    margin-left: 500px; 
+    
+}
+button {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-left: 900px;
+}
+    
