@@ -1,4 +1,4 @@
-div {
+.mainlist {
     box-sizing: content-box;
     width: 500px;
     height: 600px;
@@ -8,19 +8,20 @@ div {
     color:blue;
 }
 
-.textBox {
+.textbox {
     box-sizing: content-box;
-    width: 350px;
+    width: 370px;
     height: 60px;
     border: 2px solid black;
-    margin-left: 500px; 
-    
+    margin-left: 500px;
+    margin-top: 20px;
+
 }
-button {
+.button {
     width: 100px;
     height: 40px;
     border-radius: 10px;
     font-size: 20px;
-    margin-left: 900px;
+    margin-left: 50px;   
 }
     
