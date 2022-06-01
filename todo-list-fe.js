@@ -1,7 +1,7 @@
 const baseURL = 'http://localhost:3000/api'
 
-const loadList = (data) => {
-   return document.getElementById('maintext').innerHTML = JSON.stringify(data)
+const loadList = (id, data) => {
+    document.getElementById(id).innerHTML = JSON.stringify(data, null, '<br>')
 }
 
 fetch(`${baseURL}/todos`).then(
@@ -9,6 +9,6 @@ fetch(`${baseURL}/todos`).then(
        return response.json()
     }
 ).then((todoData) => {
-    return loadList(todoData)
+    loadList('maintext', todoData)
 }
 )
