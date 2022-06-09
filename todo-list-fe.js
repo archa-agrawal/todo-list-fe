@@ -2,38 +2,44 @@
 
 const baseURL = 'http://localhost:3000/api'
 
-const loadList = (url, id) => {
+const loadList = (url, divId) => {
     fetch(url).then(
         (response) => {
-           return response.json()
+            if(response.ok){
+                return response.json()
+            }
+            throw Error()
         }
-    ).then((data) => {
-        document.getElementById(id).innerHTML = JSON.stringify(data, null, '<br>')
+    ).then(
+        (data) => {
+            document.getElementById(divId).innerHTML = JSON.stringify(data, null, '<br>')
         }
-    )   
+    )
 }
-/*
-fetch(`${baseURL}/todos`).then(
-    (response) => {
-       return response.json()
-    }
-).then((todoData) => {
-    loadList('maintext', todoData)
-}
-)
-*/
 
-const addTodo = (url, msg) => {
-    fetch(url,
+const addTodo = (message) => {
+    return fetch(`${baseURL}/todo`,
         {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({message:msg}),
+        body: JSON.stringify({message:message}),
         }
     )
 }
 loadList(`${baseURL}/todos`, 'maintext');
-addTodo(`${baseURL}/todo`, 'seventh todo');
 
+const newAddition = () => {
+    const userInput = document.getElementById("addbox").value
+    addTodo(userInput).then(
+        (response) => {
+            if(response.ok){
+                return loadList(`${baseURL}/todos`, 'maintext')
+            }
+            throw Error()
+        }
+    ).catch(() => console.log('error'));
+}
+
+document.getElementById("toAdd").addEventListener('click', newAddition)
