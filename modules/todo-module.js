@@ -6,20 +6,10 @@ const method = {
   POST: 'POST'
 }
 
-const loadList = (url,divId) => {
-  fetch(url).then(
+const loadList = () => {
+  return fetch(`${baseURL}/todos`).then(
     (response) => {
-        return response.json();
-      }
-  ).then(
-    (responseJson)=> {
-      let todoArray = []
-      todoArray = responseJson;
-      for (let i=0; i<todoArray.length; i++) {
-        let newDiv = document.createElement('div')
-        newDiv.innerHTML = todoArray[i].message
-        document.getElementById(divId).appendChild(newDiv)
-      }
+      return response.json();
     }
   )
 }

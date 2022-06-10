@@ -1,19 +1,32 @@
 'use strict'
 
-import {loadList, addTodo, deleteTodo, toggleTodo} from './todo-module.js'
+import {loadList, addTodo, deleteTodo, toggleTodo} from './modules/todo-module.js'
 
 // no need to have base url here. SOC
 // rename files and refactor structure
 const baseURL = 'http://localhost:3000/api'
 
-loadList(`${baseURL}/todos`,'mainlist');
+
+const printList = (divId) => {
+    loadList().then(
+        (array) => {
+            console.log(array)
+            for (let i=0; i<array.length; i++) {
+                let newDiv = document.createElement('div')
+                newDiv.innerHTML = array[i].message
+                document.getElementById(divId).appendChild(newDiv)
+            }
+        }
+    )
+}
+printList('mainlist')
 
 const newAddition = () => {
     const userInput = document.getElementById("addbox").value
     addTodo(userInput).then(
         (response) => {
             if(response.ok){
-                return loadList(`${baseURL}/todos`, 'maintext')
+                return loadList(`${baseURL}/todos`, 'mainlist')
             }
             throw Error()
         }
@@ -27,7 +40,7 @@ const deletion = () => {
     deleteTodo(deleteId).then(
         (response) => {
             if (response.deleted){
-                return loadList(`${baseURL}/todos`, 'maintext')
+                return loadList(`${baseURL}/todos`, 'mainlist')
             }
             throw Error()
         }
@@ -41,7 +54,7 @@ const doToggle = () => {
     toggleTodo(toggleID).then(
         (response) => {
             if (response.ok){
-                return loadList(`${baseURL}/todos`, 'maintext')
+                return loadList(`${baseURL}/todos`, 'mainlist')
             }
             throw Error()
         }
