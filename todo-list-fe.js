@@ -48,9 +48,7 @@ const deleteTodo = (id) => {
     return fetch(`${baseURL}/todo/${id}`,
         {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            
         }
     )
 }
@@ -67,3 +65,23 @@ const deletion = () => {
     ).catch(() => console.log('error'));
 }
 document.getElementById('toDelete').addEventListener('click', deletion)
+
+const toggleTodo = (id) => {
+    return fetch(`${baseURL}/todo/${id}/toggle`,
+        {
+            method: 'PUT'
+        }
+    )
+}
+const doToggle = () => {
+    const toggleID = document.getElementById("togglebox").value;
+    toggleTodo(toggleID).then(
+        (response) => {
+            if (response.ok){
+                return loadList(`${baseURL}/todos`, 'maintext')
+            }
+            throw Error()
+        }
+    ).catch(()=> console.log('error'))
+}
+document.getElementById("toToggle").addEventListener('click', doToggle)
