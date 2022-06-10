@@ -1,10 +1,30 @@
 'use strict'
 
+const baseURL = 'http://localhost:3000/api';
+
 const method = {
   POST: 'POST'
 }
 
-const baseURL = 'http://localhost:3000/api';
+const loadList = (url,divId) => {
+  fetch(url).then(
+    (response) => {
+        return response.json();
+      }
+  ).then(
+    (responseJson)=> {
+      let todoArray = []
+      todoArray = responseJson;
+      for (let i=0; i<todoArray.length; i++) {
+        let newDiv = document.createElement('div')
+        newDiv.innerHTML = todoArray[i].message
+        document.getElementById(divId).appendChild(newDiv)
+      }
+    }
+  )
+}
+
+
 // Add documentation on methods
 // try to avoid using string literals
 // add proper error handling
@@ -50,4 +70,4 @@ const toggleTodo = (id) => {
   )
 }
 
-export {addTodo, deleteTodo, toggleTodo};
+export {loadList, addTodo, deleteTodo, toggleTodo};

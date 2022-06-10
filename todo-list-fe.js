@@ -1,29 +1,12 @@
 'use strict'
 
-import {addTodo, deleteTodo, toggleTodo} from './todo-module.js'
-
-let errorCounter = 0;
+import {loadList, addTodo, deleteTodo, toggleTodo} from './todo-module.js'
 
 // no need to have base url here. SOC
 // rename files and refactor structure
 const baseURL = 'http://localhost:3000/api'
 
-const loadList = (url, divId) => {
-    fetch(url).then(
-        (response) => {
-            if(response.ok){
-                return response.json()
-            }
-            throw Error()
-        }
-    ).then(
-        (data) => {
-            document.getElementById(divId).innerHTML = JSON.stringify(data, null, '<br>')
-        }
-    )
-}
-
-loadList(`${baseURL}/todos`, 'maintext');
+loadList(`${baseURL}/todos`,'mainlist');
 
 const newAddition = () => {
     const userInput = document.getElementById("addbox").value
