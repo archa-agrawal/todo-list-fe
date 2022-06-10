@@ -43,3 +43,27 @@ const newAddition = () => {
 }
 
 document.getElementById("toAdd").addEventListener('click', newAddition)
+
+const deleteTodo = (id) => {
+    return fetch(`${baseURL}/todo/${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+}
+
+const deletion = () => {
+    const deleteId = document.getElementById("deletebox").value;
+    deleteTodo(deleteId).then(
+        (response) => {
+            if (response.ok){
+                return loadList(`${baseURL}/todos`, 'maintext')
+            }
+            throw Error()
+        }
+    ).catch(() => console.log('error'));
+}
+document.getElementById('toDelete').addEventListener('click', deletion)
