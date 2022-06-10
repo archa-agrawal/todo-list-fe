@@ -1,5 +1,11 @@
 'use strict'
 
+import {addTodo, deleteTodo, toggleTodo} from './todo-module.js'
+
+let errorCounter = 0;
+
+// no need to have base url here. SOC
+// rename files and refactor structure
 const baseURL = 'http://localhost:3000/api'
 
 const loadList = (url, divId) => {
@@ -17,17 +23,6 @@ const loadList = (url, divId) => {
     )
 }
 
-const addTodo = (message) => {
-    return fetch(`${baseURL}/todo`,
-        {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({message:message}),
-        }
-    )
-}
 loadList(`${baseURL}/todos`, 'maintext');
 
 const newAddition = () => {
@@ -44,35 +39,20 @@ const newAddition = () => {
 
 document.getElementById("toAdd").addEventListener('click', newAddition)
 
-const deleteTodo = (id) => {
-    return fetch(`${baseURL}/todo/${id}`,
-        {
-            method: 'DELETE',
-            
-        }
-    )
-}
-
 const deletion = () => {
     const deleteId = document.getElementById("deletebox").value;
     deleteTodo(deleteId).then(
         (response) => {
-            if (response.ok){
+            if (response.deleted){
                 return loadList(`${baseURL}/todos`, 'maintext')
             }
             throw Error()
         }
-    ).catch(() => console.log('error'));
+    ).catch((error) =>console.log(error));
 }
 document.getElementById('toDelete').addEventListener('click', deletion)
 
-const toggleTodo = (id) => {
-    return fetch(`${baseURL}/todo/${id}/toggle`,
-        {
-            method: 'PUT'
-        }
-    )
-}
+
 const doToggle = () => {
     const toggleID = document.getElementById("togglebox").value;
     toggleTodo(toggleID).then(
