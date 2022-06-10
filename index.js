@@ -1,23 +1,28 @@
 'use strict'
 
 import {loadList, addTodo, deleteTodo, toggleTodo} from './modules/todo-module.js'
+import createTodoComponent from './components/todo-component.js'
 
 // no need to have base url here. SOC
 // rename files and refactor structure
 const baseURL = 'http://localhost:3000/api'
+const divId = 'mainlist'
 
 
-const printList = (divId) => {
-    loadList().then(
-        (array) => {
-            console.log(array)
-            for (let i=0; i<array.length; i++) {
-                let newDiv = document.createElement('div')
-                newDiv.innerHTML = array[i].message
-                document.getElementById(divId).appendChild(newDiv)
-            }
-        }
-    )
+const printList = () => {
+  loadList().then(
+    (todoList) => {
+      const oldTodoElements = document.getElementsByClassName('todo-container');
+      console.log(oldTodoElements)
+      for(let todo = oldTodoElements.length -1; todo > -1; todo--){
+        oldTodoElements[todo].remove()
+      }
+      for (let todo of todoList) {
+        const todoElement = createTodoComponent(todo.message, todo.checked);
+        document.getElementById(divId).appendChild(todoElement)
+      }
+    }
+  )
 }
 printList('mainlist')
 
@@ -26,7 +31,7 @@ const newAddition = () => {
     addTodo(userInput).then(
         (response) => {
             if(response.ok){
-                return loadList(`${baseURL}/todos`, 'mainlist')
+                return printList()
             }
             throw Error()
         }
@@ -34,30 +39,3 @@ const newAddition = () => {
 }
 
 document.getElementById("toAdd").addEventListener('click', newAddition)
-
-const deletion = () => {
-    const deleteId = document.getElementById("deletebox").value;
-    deleteTodo(deleteId).then(
-        (response) => {
-            if (response.deleted){
-                return loadList(`${baseURL}/todos`, 'mainlist')
-            }
-            throw Error()
-        }
-    ).catch((error) =>console.log(error));
-}
-document.getElementById('toDelete').addEventListener('click', deletion)
-
-
-const doToggle = () => {
-    const toggleID = document.getElementById("togglebox").value;
-    toggleTodo(toggleID).then(
-        (response) => {
-            if (response.ok){
-                return loadList(`${baseURL}/todos`, 'mainlist')
-            }
-            throw Error()
-        }
-    ).catch(()=> console.log('error'))
-}
-document.getElementById("toToggle").addEventListener('click', doToggle)

@@ -42,4 +42,27 @@
     margin-left: 500px;
     text-align: center;
 }
-    
+
+
+.todo-container{
+    display: flex;
+}
+
+.toggle{
+    width: 20px;
+    height: 20px;
+}
+
+.toggle-container{
+    width: 80px;
+}
+
+.message-container{
+    width: 300px;
+    font-size: 25px;
+}
+
+.del-container{
+    width: auto;
+}
+
