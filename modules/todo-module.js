@@ -1,5 +1,7 @@
 'use strict'
 
+import todoFactory from "../factory/todo-factory.js";
+
 // This module is used to talk to the todo backend
 
 const baseURL = 'http://localhost:3000/api';
@@ -13,7 +15,9 @@ const loadList = () => {
     (response) => {
       return response.json();
     }
-  )
+  ).then((todoList) => {
+    return todoList.map((todo) => todoFactory(todo))
+  })
 }
 
 
