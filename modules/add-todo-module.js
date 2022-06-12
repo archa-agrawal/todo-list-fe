@@ -4,14 +4,16 @@ import printList from './main-list-module.js';
 
 const newAddition = () => {
   const userInput = document.getElementById("addbox").value
-  addTodo(userInput).then(
-      (response) => {
-          if(response.ok){
-              return printList()
-          }
-          throw Error()
-      }
-  ).catch(() => console.log('error'));
+
+  try{
+    const response = await addTodo(userInput);
+    if(response.ok){
+      return printList()
+    }
+    throw Error()
+  }catch(e){
+    console.log('error')
+  }
 }
 
 
