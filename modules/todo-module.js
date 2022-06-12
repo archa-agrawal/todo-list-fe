@@ -10,14 +10,10 @@ const method = {
   POST: 'POST'
 }
 
-const loadList = () => {
-  return fetch(`${baseURL}/todos`).then(
-    (response) => {
-      return response.json();
-    }
-  ).then((todoList) => {
-    return todoList.map((todo) => todoFactory(todo))
-  })
+const loadList = async () => {
+  const response = await fetch(`${baseURL}/todos`);
+  const todoList = await response.json();
+  return todoList.map((todo) => todoFactory(todo))
 }
 
 

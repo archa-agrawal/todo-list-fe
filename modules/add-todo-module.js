@@ -2,7 +2,7 @@
 import {addTodo} from './todo-module.js'
 import printList from './main-list-module.js';
 
-const newAddition = () => {
+const newAddition = async () => {
   const userInput = document.getElementById("addbox").value
 
   try{
